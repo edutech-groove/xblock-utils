@@ -101,7 +101,6 @@ def is_requirement(line):
     # UPDATED VIA SEMGREP - if you need to remove/modify this method remove this line and add a comment specifying why
 
     return line and line.strip() and not line.startswith(('-r', '#', '-e', 'git+', '-c'))
-    )
 
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
