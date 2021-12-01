@@ -49,8 +49,7 @@ function StudioEditableXBlockMixin(runtime, element) {
             $resetButton.removeClass('active').addClass('inactive');
         });
         if (type == 'html' && tinyMceAvailable) {
-            tinyMCE.baseURL = baseUrl + "/js/vendor/tinymce/js/tinymce";
-            $field.tinymce({
+            var tinymceOptions = {
                 theme: 'modern',
                 skin: 'studio-tmce4',
                 height: '200px',
@@ -66,7 +65,9 @@ function StudioEditableXBlockMixin(runtime, element) {
                 setup : function(ed) {
                     ed.on('change', fieldChanged);
                 }
-            });
+            };
+            tinyMCE.baseURL = baseUrl + "/js/vendor/tinymce/js/tinymce";
+            $field.tinymce(Object.assign(tinymceOptions, window.CustomizeFunctionsHook.getTinymceExtraOptions()));
         }
 
         if (type == 'datepicker' && datepickerAvailable) {
