@@ -67,12 +67,11 @@ function StudioEditableXBlockMixin(runtime, element) {
                 }
             };
             tinyMCE.baseURL = baseUrl + "/js/vendor/tinymce/js/tinymce";
-            $field.tinymce(Object.assign(tinymceOptions, 
-                (
-                    window.CustomizeFunctionsHook && window.CustomizeFunctionsHook['getTinymceExtraOptions'] && typeof CustomizeFunctionsHook['getTinymceExtraOptions'] === 'function' ?
-                    window.CustomizeFunctionsHook.getTinymceExtraOptions() : {}
-                )
-            ));
+            if (window.CustomizeFunctionsHook && window.CustomizeFunctionsHook['getTinymceExtraOptions'] && typeof CustomizeFunctionsHook['getTinymceExtraOptions'] === 'function') {
+              var tinymceExtraOptions = window.CustomizeFunctionsHook.getTinymceExtraOptions();
+              Object.assign(tinymceOptions, tinymceExtraOptions);
+            }
+            $field.tinymce(tinymceOptions);
         }
 
         if (type == 'datepicker' && datepickerAvailable) {
