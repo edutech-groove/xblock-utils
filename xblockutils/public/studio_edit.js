@@ -67,7 +67,12 @@ function StudioEditableXBlockMixin(runtime, element) {
                 }
             };
             tinyMCE.baseURL = baseUrl + "/js/vendor/tinymce/js/tinymce";
-            $field.tinymce(Object.assign(tinymceOptions, window.CustomizeFunctionsHook.getTinymceExtraOptions()));
+            $field.tinymce(Object.assign(tinymceOptions, 
+                (
+                    window.CustomizeFunctionsHook && window.CustomizeFunctionsHook['getTinymceExtraOptions'] && typeof CustomizeFunctionsHook['getTinymceExtraOptions'] === 'function' ?
+                    window.CustomizeFunctionsHook.getTinymceExtraOptions() : {}
+                )
+            ));
         }
 
         if (type == 'datepicker' && datepickerAvailable) {
